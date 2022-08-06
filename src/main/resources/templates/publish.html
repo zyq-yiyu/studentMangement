@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>添加——学生管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">学生管理系统</span>
+            </button>
+            <a class="navbar-brand" href="/">学生管理系统</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<!--            <form class="navbar-form navbar-left">-->
+<!--                <div class="form-group">-->
+<!--                    <input type="text" class="form-control" placeholder="搜索问题">-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-default">搜索</button>-->
+<!--            </form>-->
+            <ul class="nav navbar-nav navbar-right">
+                <li th:if="${session.user != null}">
+                    <a href="/publish">添加</a>
+                </li>
+                <li th:if =" ${session.user == null}">
+                    <a href="https://github.com/login/oauth/authorize?client_id=5de0bad5ae0612186658&redirect_uri=http://localhost:8887/callback&response_type=code&state=1">登录</a></li>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加信息</h2>
+            <hr>
+
+            <form action="/publish" method="post">
+                <input type="hidden" name="id" th:value="${id}">
+                <div class="form-group">
+                    <label for="title">姓名</label>
+                    <input type="text" class="form-control" th:value="${title}" id="title" name="title"
+                           autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="title">学号</label>
+                    <input type="text" class="form-control" th:value="${description}" id="description" name="description"
+                           autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="title">专业</label>
+                    <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag"
+                           autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="title">QQ</label>
+                    <input type="text" class="form-control" th:value="${qqnum}" id="qqnum" name="qqnum"
+                           autocomplete="off">
+                </div>
+
+<!--                <div class="form-group" id="question-editor" style="z-index: 2">-->
+<!--                    <label for="description">问题补充 (必填，请参照右侧提示):</label>-->
+<!--                    <textarea name="description" id="description" th:text="${description}"-->
+<!--                              class="form-control"-->
+<!--                              cols="30"-->
+<!--                              rows="10"></textarea>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label for="tag">添加标签：</label>-->
+<!--                    <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" placeholder="输入标签，以，分隔">-->
+<!--                </div>-->
+                <div class="container-fluid main ">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                 th:text="${error}"
+                                 th:if="${error != null}">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success btn-publish ">
+                                保存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        </div>
+    </div>
+</div>
+</body>
+</html>

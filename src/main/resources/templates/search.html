@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>添加——学生管理</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/css/community.css">
+  <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">学生管理系统</span>
+      </button>
+      <a class="navbar-brand" href="/">学生管理系统</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <!--            <form class="navbar-form navbar-left">-->
+      <!--                <div class="form-group">-->
+      <!--                    <input type="text" class="form-control" placeholder="搜索问题">-->
+      <!--                </div>-->
+      <!--                <button type="submit" class="btn btn-default">搜索</button>-->
+      <!--            </form>-->
+      <ul class="nav navbar-nav navbar-right">
+        <li th:if="${session.user != null}">
+          <a href="/search">查询</a>
+        </li>
+        <li th:if =" ${session.user == null}">
+          <a href="https://github.com/login/oauth/authorize?client_id=5de0bad5ae0612186658&redirect_uri=http://localhost:8887/callback&response_type=code&state=1">登录</a></li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid main">
+  <div class="row">
+    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+      <h2><span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询</h2>
+      <hr>
+
+      <form action="/search" method="post">
+<!--        <input type="hidden" name="id" th:value="${id}">-->
+        <div class="form-group">
+          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+          <label for="search">请输入学号</label>
+          <input type="text" class="form-control" th:value="${search}" id="search" name="search"
+                 autocomplete="off">
+        </div>
+        </div>
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+        <button type="submit" class="btn btn-success btn-publish" style="margin-top: 25px;">
+          查询
+        </button>
+      </div>
+        <div class="container-fluid main ">
+          <div class="row">
+
+              <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                   th:text="${error}"
+                   th:if="${error != null}"
+                   style="margin-top: 20px;width: 30%;">
+              </div>
+
+          </div>
+        </div>
+        <div class="media" th:each="question:${question}" style="margin-top: 0;">
+          <div class="media-body">
+            <h4 class="media-heading" th:text="${question.title}"></h4>
+            学号：<span th:text="${question.description}"></span>
+            <span style="margin-left: 5px;">专业： </span><span th:text="${question.tag}"></span>
+            <span style="margin-left: 5px;">QQ： </span><span th:text="${question.qqnum}"></span>
+            <a th:href="@{'/delete/'+${question.id}}" class="community-menu nav navbar-nav navbar-right"
+               style="margin-right: 15px;">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" style="margin-bottom: 15px"></span>
+              删除
+            </a>
+            <a th:href="@{'/publish/'+${question.id}}" class="community-menu nav navbar-nav navbar-right"
+               style="margin-right: 15px;">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin-bottom: 15px"></span>
+              编辑
+            </a>
+            <br>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    </div>
+  </div>
+</div>
+</body>
+</html>
